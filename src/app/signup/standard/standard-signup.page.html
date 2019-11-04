@@ -1,0 +1,177 @@
+<header></header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row class="ion-justify-content-center ion-align-items-center row-full-height">
+
+      <ion-col size="12">
+
+        <form [formGroup]="signupForm"
+              (ngSubmit)="submit(signupForm.value)">
+
+          <ion-item>
+            <h2>Signup</h2>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">First Name</ion-label>
+            <ion-input formControlName="firstName"
+                       debounce="500"></ion-input>
+            <span *ngIf="firstName.invalid && firstName.value"
+                  class="error-message">Valid First Name is required</span>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Last Name</ion-label>
+            <ion-input formControlName="lastName"
+                       debounce="500"></ion-input>
+            <span *ngIf="lastName.invalid && lastName.value"
+                  class="error-message">Valid Last Name is required</span>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Date of Birth</ion-label>
+            <ion-datetime formControlName="dateOfBirth"
+                          [max]="datetimeConfig.max"
+                          [min]="datetimeConfig.min"></ion-datetime>
+            <span *ngIf="dateOfBirth.invalid && dateOfBirth.value"
+                  class="error-message">Valid Date of Birth required</span>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Mobile</ion-label>
+            <ion-input formControlName="mobile"
+                       debounce="500"></ion-input>
+            <span *ngIf="mobile.invalid && mobile.value"
+                  class="error-message">Valid Mobile is required</span>
+          </ion-item>
+
+          <div id="handle">
+            <span id="label">Handle</span>
+            <ion-item>
+              <ion-note slot="start"
+                        id="input-prefix">@</ion-note>
+              <ion-input formControlName="handle"
+                         debounce="500"></ion-input>
+
+              <ion-button slot="end"
+                          fill="clear"
+                          [color]="handle.invalid && handle.value ? 'danger' : 'secondary'"
+                          [popper]="handleInfo"
+                          [popperTrigger]="'hover'"
+                          [popperPreventOverflow]="true"
+                          [popperApplyClass]="'popper, classic'"
+                          [popperApplyArrowClass]="'popper-no-arrow'">
+
+                <ion-icon name="information-circle"></ion-icon>
+
+              </ion-button>
+
+            </ion-item>
+
+            <span *ngIf="handle.invalid && handle.value"
+                  class="error-message">Valid Handle is required</span>
+          </div>
+
+          <popper-content #handleInfo>
+            <p>Just like social media, your public profile can be accessed with a handle. Accepted characters are:</p>
+            <ul>
+              <li>all letters, any case</li>
+              <li>numbers</li>
+              <li>underscores</li>
+              <li>dashes</li>
+            </ul>
+            <p>The maximum length is 20 characters.</p>
+          </popper-content>
+
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input formControlName="email"
+                       debounce="500"
+                       debounce="500"></ion-input>
+            <span *ngIf="email.invalid && email.value"
+                  class="error-message">Valid Email is required</span>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input formControlName="password"
+                       [type]="showPassword ? 'text' : 'password'"
+                       debounce="500"></ion-input>
+            <span *ngIf="password.invalid && password.value"
+                  class="error-message">Valid Password is required</span>
+
+            <ion-button fill="clear"
+                        slot="end"
+                        (click)="showPassword = !showPassword">
+              <ion-icon [name]="showPassword ? 'eye' : 'eye-off'"></ion-icon>
+            </ion-button>
+
+            <ion-button slot="end"
+                        fill="clear"
+                        [color]="password.invalid && password.value ? 'danger' : 'secondary'"
+                        [popper]="passwordInfo"
+                        [popperTrigger]="'hover'"
+                        [popperPreventOverflow]="true"
+                        [popperApplyClass]="'popper, classic'"
+                        [popperApplyArrowClass]="'popper-no-arrow'">
+
+              <ion-icon name="information-circle"></ion-icon>
+
+            </ion-button>
+
+          </ion-item>
+
+
+          <popper-content #passwordInfo>
+            <h4>Password requirements</h4>
+            <ul>
+              <li>at least <strong>one</strong> captial letter</li>
+              <li>at least <strong>one</strong> number</li>
+              <li>at least <strong>one</strong> special character</li>
+            </ul>
+          </popper-content>
+
+          <ion-row class="ion-justify-content-center ion-align-items-center ion-margin-vertical ion-text-center">
+
+            <ion-col size="6">
+              <ion-button color="medium"
+                          routerLink="/login"
+                          routerDirection="forward">
+                Back to Login
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="6"
+                     *ngIf="signupForm.dirty">
+              <ion-button type="submit"
+                          [disabled]="signupForm.invalid">
+                Submit
+              </ion-button>
+            </ion-col>
+
+          </ion-row>
+
+        </form>
+
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+
+    <ion-buttons slot="end">
+
+      <ion-button color="tertiary"
+                  routerLink="/signup/enterprise">
+        Enterprise
+      </ion-button>
+
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>

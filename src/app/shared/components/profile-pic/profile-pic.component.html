@@ -1,0 +1,63 @@
+<ion-row class="ion-justify-content-center ion-text-center">
+
+      <ion-col class="ion-align-self-center"
+               size="12"
+               size-md="6">
+
+
+        <div id="img-container">
+
+          <ng-container *ngIf="!croppedImg">
+            <img *ngIf="(!croppedImg) && user.profilePic$ | async as pic; else placeholder"
+                 src="{{pic}}">
+          </ng-container>
+
+          <ng-template #placeholder>
+            <img src="../../assets/Blank-avatar.png">
+          </ng-template>
+
+          <img *ngIf="croppedImg?.base64 as pic"
+               src="{{pic}}">
+
+        </div>
+
+        <h2>{{user.name}}</h2>
+        <ion-button size="small"
+                    fill="clear"
+                    (click)="input.click()">
+          Upload
+        </ion-button>
+
+        <input #input
+               type="file"
+               (change)="imageUploaded($event)"
+               accept=".png, .jpg"
+               style="display:none">
+
+        <div *ngIf="profilePicLoading"
+             id="spinner">
+          <ion-spinner></ion-spinner>
+        </div>
+
+      </ion-col>
+
+
+      <ion-col *ngIf="imageUploadedEvent"
+               class="ion-text-center"
+               size="12"
+               size-md="4">
+
+        <h4>Crop Image</h4>
+
+        <image-cropper [imageChangedEvent]="imageUploadedEvent"
+                       [imageQuality]="100"
+                       [maintainAspectRatio]="true"
+                       (imageCropped)="imageCropped($event)"
+                       (loadImageFailed)="imageUploadFailed()"></image-cropper>
+
+        <ion-button (click)="saveImg()">Save</ion-button>
+
+      </ion-col>
+
+
+    </ion-row>

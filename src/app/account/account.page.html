@@ -1,0 +1,143 @@
+<header [backBtn]="true"></header>
+
+<ion-content>
+    <ion-grid fixed>
+
+        <ion-row class="ion-align-items-center">
+            <ion-col size="12">
+
+                <h1>Profile</h1>
+
+                <ion-button id="settings-btn"
+                            fill="clear"
+                            size="small"
+                            (click)="edit = !edit">
+                    <ion-icon name="create"></ion-icon>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="data$ | async as data">
+            <ion-col size="6"
+                     class="ion-text-center ion-align-self-start">
+                <profile-pic></profile-pic>
+            </ion-col>
+
+
+            <ion-col size="6">
+
+                <form #profileForm="ngForm"
+                      (ngSubmit)="submit(profileForm.value)">
+
+                    <ion-item [lines]="edit ? 'full' : 'none'">
+                        <ion-label>Account Type:</ion-label>
+                        <ion-input readonly>{{data.accountType | titlecase}}</ion-input>
+                    </ion-item>
+
+
+                    <div id="handle">
+                        <span id="label">Handle:</span>
+                        <ion-item [lines]="edit ? 'full' : 'none'">
+                            <ion-note slot="start"
+                                      id="input-prefix">@</ion-note>
+                            <ion-input name="handle"
+                                       [ngModel]="data.handle"
+                                       [readonly]="!edit"></ion-input>
+                        </ion-item>
+                    </div>
+
+
+                    <span *ngIf="data.accountType == 'enterprise'"
+                          ngModelGroup="company">
+
+                        <ion-item [lines]="edit ? 'full' : 'none'">
+                            <ion-label>Company Name:</ion-label>
+                            <ion-input name="name"
+                                       [ngModel]="data.name"
+                                       [readonly]="!edit"></ion-input>
+                        </ion-item>
+
+                        <ion-item [lines]="edit ? 'full' : 'none'">
+                            <ion-label>Founded:</ion-label>
+                            <ion-input *ngIf="!edit"
+                                       readonly>
+                                {{data.founded.day}}/{{data.founded.month}}/{{data.founded.year}}
+                            </ion-input>
+                            <ion-datetime *ngIf="edit"
+                                          name="founded"
+                                          [ngModel]="data.founded"
+                                          placeholder="select to change"
+                                          (ionChange)="companyFoundedDateChanged = true">
+                            </ion-datetime>
+                        </ion-item>
+
+                        <ion-item [lines]="edit ? 'full' : 'none'">
+                            <ion-label>Contact:</ion-label>
+                            <ion-input name="contact"
+                                       [ngModel]="data.contact"
+                                       [readonly]="!edit"></ion-input>
+                        </ion-item>
+
+                    </span>
+
+
+                    <span *ngIf="data.accountType == 'standard'"
+                          ngModelGroup="general">
+
+                        <ion-item [lines]="edit ? 'full' : 'none'">
+                            <ion-label>First Name:</ion-label>
+                            <ion-input name="firstName"
+                                       [ngModel]="data.firstName"
+                                       [readonly]="!edit"></ion-input>
+                        </ion-item>
+
+                        <ion-item [lines]="edit ? 'full' : 'none'">
+                            <ion-label>Last Name:</ion-label>
+                            <ion-input name="lastName"
+                                       [ngModel]="data.lastName"
+                                       [readonly]="!edit"></ion-input>
+                        </ion-item>
+
+                        <ion-item [lines]="edit ? 'full' : 'none'">
+                            <ion-label>Mobile:</ion-label>
+                            <ion-input name="mobile"
+                                       [ngModel]="data.mobile"
+                                       [readonly]="!edit"></ion-input>
+                        </ion-item>
+
+                    </span>
+
+
+                    <ion-note *ngIf="result"
+                              class="ion-float-right">{{result}}</ion-note>
+
+
+                    <ion-row *ngIf="edit"
+                             class="ion-margin-top ion-text-center">
+
+                        <ion-col size="6">
+                            <ion-button color="medium"
+                                        size="small"
+                                        (click)="edit = false">
+                                Cancel
+                            </ion-button>
+                        </ion-col>
+
+                        <ion-col size="6">
+                            <ion-button size="small"
+                                        type="submit"
+                                        [disabled]="profileForm.pristine">
+                                Save
+                            </ion-button>
+                        </ion-col>
+
+                    </ion-row>
+
+
+                </form>
+            </ion-col>
+
+        </ion-row>
+
+    </ion-grid>
+</ion-content>

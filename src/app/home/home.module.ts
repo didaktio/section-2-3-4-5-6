@@ -1,23 +1,29 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { CoreModule } from '../@core/core.module';
 
 import { HomePage } from './home.page';
 
+import { ProfilePicModule } from '../shared/components/profile-pic/profile-pic.module';
+
+import { AccountCardComponent } from './account-card/account-card.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: HomePage
+  }
+];
+
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: HomePage
-      }
-    ])
+    CoreModule,
+    ProfilePicModule,
+    RouterModule.forChild(routes)
   ],
-  declarations: [HomePage]
+  declarations: [
+    HomePage,
+    AccountCardComponent
+  ]
 })
-export class HomePageModule {}
+export class HomePageModule { }

@@ -1,0 +1,24 @@
+#handle {
+    #label {
+        padding-left: 16px;
+        padding-top: 16px;
+        display: block;
+        font-weight: bold;
+    }
+
+    #input-prefix {
+        font-size: 1em;
+        margin-right: 0;
+    }
+}
+
+ion-label {
+    font-weight: bold;
+    padding-right: 8px;
+}
+
+#settings-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}

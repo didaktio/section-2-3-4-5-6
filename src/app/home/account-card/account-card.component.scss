@@ -1,0 +1,30 @@
+#container {
+    position: relative;
+    width: fit-content;
+    margin: auto;
+}
+
+ion-card {
+    position: relative;
+    width: fit-content;
+    margin: auto;
+
+    ion-card-content {
+        span {
+            font-weight: bold;
+        }
+    }
+
+    ion-badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}
+
+#edit-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+}

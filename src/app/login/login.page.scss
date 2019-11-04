@@ -1,0 +1,38 @@
+.error-message {
+    color: red;
+}
+
+#custom-message {
+    margin-left: 16px;
+    margin-top: 16px;
+
+    span {
+        padding: 1px;
+        display: block;
+    }
+
+    #handle {
+        color: grey;
+    }
+
+    #not-you-btn {
+        cursor: pointer;
+        color: blue;
+        font-size: 0.8em;
+    }
+}
+
+.form-column {
+    margin: auto;
+}
+
+#btns {
+    position: relative;
+
+    #forgot-password-btn {
+        position: absolute;
+        right: 0;
+        top: 0;
+        font-size: 0.7em;
+    }
+}

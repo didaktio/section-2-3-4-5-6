@@ -1,0 +1,113 @@
+<header></header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row class="row-full-height">
+
+      <div *ngIf="localData as local"
+           id="custom-message">
+        <span *ngIf="local.accountType == 'enterprise'">Login to manage your company ({{local.name}})</span>
+        <span *ngIf="local.accountType == 'standard'">Welcome back, {{local.name}}</span>
+        <span id="handle">{{local.handle}}</span>
+        <span id="not-you-btn"
+              (click)="deleteLocalData()">(Not you?)</span>
+      </div>
+
+      <ion-col size="12"
+               class="ion-text-center">
+
+        <h2>My App</h2>
+
+      </ion-col>
+
+      <ion-col class="form-column"
+               size="12"
+               size-md="6">
+
+        <form [formGroup]="loginForm"
+              (ngSubmit)="submit(loginForm.value)">
+
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input formControlName="email"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input formControlName="password"
+                       [type]="showPassword ? 'text' : 'password'"
+                       type="password"></ion-input>
+            <ion-button fill="clear"
+                        slot="end"
+                        (click)="showPassword = !showPassword">
+              <ion-icon [name]="showPassword ? 'eye' : 'eye-off'"></ion-icon>
+            </ion-button>
+          </ion-item>
+
+          <ion-item lines="none"
+                    *ngIf="error">
+            <span class="error-message">{{error}}</span>
+
+            <div slot="end"
+                 class="ion-margin"
+                 id="captchaContainer"
+                 [hidden]="captchaSolved || captchaSolved == undefined"></div>
+
+          </ion-item>
+
+
+          <div class="ion-text-center ion-margin" id="btns">
+
+            <ion-button id="forgot-password-btn"
+                        fill="clear"
+                        color="medium"
+                        (click)="forgotPassword()">
+              Forgot Password?
+            </ion-button>
+
+            <ion-button type="submit"
+                        [disabled]="loginForm.invalid || captchaSolved == false">
+              Login
+            </ion-button>
+            <br>
+            <ion-button color="tertiary"
+                        routerLink="/signup"
+                        routerDirection="forward">
+              Signup
+            </ion-button>
+          </div>
+
+        </form>
+
+      </ion-col>
+
+      <ion-col size="12"
+               class="ion-text-center">
+
+        <ion-button (click)="googleLogin()"
+                    size="small"
+                    color="secondary">
+          Google Login
+        </ion-button>
+
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+
+    <ion-buttons slot="end">
+
+      <ion-button color="tertiary"
+                  routerLink="/signup/enterprise">
+        Enterprise
+      </ion-button>
+
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>

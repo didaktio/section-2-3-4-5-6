@@ -1,0 +1,33 @@
+<header></header>
+
+<ion-content class="ion-padding">
+
+  <ion-grid fixed>
+
+    <h1>Liked Companies</h1>
+
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+             
+
+      <ion-col *ngFor="let company of companies"
+               size="4">
+        <ion-card>
+
+          <ion-card-content>
+
+            <ion-item *ngFor="let field of company | keyvalue">
+              <strong>{{field.key | decamel }}:</strong> &nbsp; {{field.value}}
+            </ion-item>
+
+          </ion-card-content>
+
+        </ion-card>
+      </ion-col>
+
+
+
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

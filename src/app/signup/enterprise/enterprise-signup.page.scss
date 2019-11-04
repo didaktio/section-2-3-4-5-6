@@ -1,0 +1,17 @@
+#handle {
+    #label {
+        padding-left: 16px;
+        padding-top: 16px;
+        display: block;
+    }
+
+    #input-prefix {
+        font-size: 1em;
+        margin-right: 0;
+    }
+}
+
+.error-message {
+    color: red;
+    padding: 0 0 8px 0;
+}

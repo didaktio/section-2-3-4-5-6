@@ -1,0 +1,29 @@
+<div id="container" *ngIf="data">
+
+  <ion-button id="edit-btn"
+              fill="clear"
+              size="small"
+              (click)="editClicked()">
+    <ion-icon name="create"></ion-icon>
+  </ion-button>
+
+  <ion-card>
+
+    <ion-badge *ngIf="data.accountType == 'enterprise'"
+               color="tertiary">
+      Enterprise
+    </ion-badge>
+
+    <ion-card-content>
+      <span>Account Type:</span> {{ data.accountType }}
+      <br>
+      <span>Joined:</span> {{ formatDate(data.createdAt) }}
+      <br>
+      <span>Handle:</span> @{{ data.handle }}
+      <br>
+      <span>ID:</span> {{ data.uid }}
+    </ion-card-content>
+
+  </ion-card>
+
+</div>
