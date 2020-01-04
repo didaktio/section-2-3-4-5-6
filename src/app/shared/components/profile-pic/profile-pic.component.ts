@@ -32,7 +32,7 @@ export class ProfilePicComponent implements OnInit {
         header: 'Oh no!',
         message: 'This image file too large. Please upload an file less than 5mb.',
         color: 'danger',
-        showCloseButton: true
+        buttons: ['Close']
       });
       toast.present();
 
@@ -45,7 +45,7 @@ export class ProfilePicComponent implements OnInit {
       header: 'Upload failed',
       message: 'Please try refreshing the page. Ensure the file is an image type, and under 5mb in size.',
       color: 'danger',
-      showCloseButton: true
+      buttons: ['Close']
     });
     toast.present();
   }

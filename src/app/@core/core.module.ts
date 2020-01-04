@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { NgxPopperModule } from 'ngx-popper';
-import { MatTooltipModule } from '@angular/material';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { HeaderModule } from './header/header.module';
 import { CamelToTitlePipe } from './utils/pipes/decamel';
 
