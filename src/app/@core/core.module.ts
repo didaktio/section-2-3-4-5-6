@@ -22,7 +22,7 @@ import { CamelToTitlePipe } from './utils/pipes/decamel';
         IonicModule,
         FormsModule,
         ReactiveFormsModule,
-        NgxPopperModule,
+        NgxPopperModule.forRoot(),
         MatTooltipModule,
         HeaderModule
     ],

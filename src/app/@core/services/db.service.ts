@@ -44,7 +44,7 @@ export class DbService {
      */
     doc$(path): Observable<any> {
         return this.db.doc(path).snapshotChanges().pipe(
-            map(doc => ({ ...doc.payload.data(), id: doc.payload.id }))
+            map(doc => ({ ...doc.payload.data() as any, id: doc.payload.id }))
         );
     }
 
@@ -66,7 +66,7 @@ export class DbService {
      */
     collection$(path: string, query?: QueryFn): Observable<any[]> {
         return this.db.collection(path, query).snapshotChanges().pipe(
-            map(docs => docs.map(d => ({ ...d.payload.doc.data(), id: d.payload.doc.id })))
+            map(docs => docs.map(d => ({ ...d.payload.doc.data() as any, id: d.payload.doc.id })))
         );
     }
 

@@ -119,6 +119,7 @@ export class LoginPage implements OnInit {
           text: 'Send me a reset link',
           handler: async data => {
 
+            console.log(data);
             const loading = await this.loading.create({ message: 'Please wait...' });
             await loading.present();
 
@@ -134,12 +135,12 @@ export class LoginPage implements OnInit {
               });
               successAlert.present();
 
-            } catch ({ code }) {
-
+            } catch (e) {
+              console.error(e);
               let error: string;
 
-              if (code === 'auth/user-not-found') error = 'Unrecognised details. Perhaps you made a typo?';
-              else if (code === 'auth/invalid-email') error = 'You entered an unrecognised or invalid email';
+              if (e.code === 'auth/user-not-found') error = 'Unrecognised details. Perhaps you made a typo?';
+              else if (e.code === 'auth/invalid-email') error = 'You entered an unrecognised or invalid email';
 
               await this.loading.dismiss();
 

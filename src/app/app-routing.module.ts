@@ -55,11 +55,7 @@ const routes: Routes = [
 
   },
   { path: 'some-page', loadChildren: './some-page/some-page.module#SomePagePageModule' },
-  {
-    path: '**',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({
