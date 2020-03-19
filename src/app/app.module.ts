@@ -38,7 +38,7 @@ import { environment } from 'src/environments/environment';
 
      // [TODO] Change this to whichever Cloud Functions Region you wish, but it must match the one used for cloud functions called by this app.
      // The default is the Iowa-based us-central1, which is just fine for learning purposes.
-    { provide: FunctionsRegionToken, useValue: 'europe-west2' },
+    { provide: FunctionsRegionToken, useValue: 'us-central1' },
 
 
     AngularFireAuth,
