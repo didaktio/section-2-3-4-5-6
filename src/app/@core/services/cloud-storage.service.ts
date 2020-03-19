@@ -13,8 +13,8 @@ export class CloudStorageService {
      * @param file The file to upload, of type BLOB.
      * @returns AngularFireUploadTask: a set of methods for cancelling, pausing, and observing the upload.
      */
-    upload(path: string, file: Blob) {
-        return this.afs.upload(path, file);
+    upload(path: string, file: string) {
+        return this.afs.ref(path).putString(file, 'data_url');
     }
 
     /**

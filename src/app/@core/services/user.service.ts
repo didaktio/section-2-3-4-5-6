@@ -46,7 +46,6 @@ export class UserService {
                 // IF user is authenticated but no document is found, return observable of null. Else perform some additional logic before
                 // returning observable of document. (This could also be done in an another (nested) tap operator, but it's cleaner like this.)
                 switchMap(doc => {
-                    console.log(doc);
                     if (!doc) return of(null);
 
                     this.uid = u.uid;
@@ -95,7 +94,7 @@ export class UserService {
      * Change the user's profile picture and update the Firestore document with the new download link.
      * @param file Image in BLOB form.
      */
-    async updateProfilePic(file: Blob) {
+    async updateProfilePic(file: string) {
         const profilePicPath = `${this.accountType}/${this.auth.uid}`;
         await this.cloudStorage.upload(profilePicPath, file);
         return this.update({ profilePicPath });

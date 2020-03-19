@@ -57,7 +57,7 @@ export class ProfilePicComponent implements OnInit {
   async saveImg() {
     this.profilePicLoading = true;
     try {
-      await this.user.updateProfilePic(this.croppedImg.file);
+      await this.user.updateProfilePic(this.croppedImg.base64);
       this.imageUploadedEvent = null;
 
       const toast = await this.toastCtrl.create({

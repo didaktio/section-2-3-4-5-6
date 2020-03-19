@@ -12,7 +12,6 @@ const assertData = <T, K extends keyof T>(data: T, key: K) => {
     return data[key];
 }
 
-
 export const createUser = functions.region(regions.default).https.onCall(async (data: Data, context) => {
 
     const email = assertData(data, 'email'),

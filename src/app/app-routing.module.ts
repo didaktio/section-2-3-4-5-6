@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { redirectUnauthorizedTo, redirectLoggedInTo, canActivate } from '@angular/fire/auth-guard';
+import { redirectUnauthorizedTo, redirectLoggedInTo, canActivate, AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { EnterpriseOnlyGuard } from './@core/guards/enterprise-only.guard';
 
+// NOTE: Since this was filmed a bug has been introduce to the AngularFireGuards which has yet to be properly resolved. I've added the 
+// temporary fix, but my advice is to stick to classic, manually-written guards for now.
 
-const redirectUnauthorizedUser = redirectUnauthorizedTo(['login']);
-const redirectLoggedInUser = redirectLoggedInTo(['home']);
+const redirectUnauthorizedUser = () => redirectUnauthorizedTo(['login']);
+const redirectLoggedInUser = () => redirectLoggedInTo(['home']);
 
 const routes: Routes = [
   {
@@ -16,12 +18,14 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
-    ...canActivate(redirectUnauthorizedUser)
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedUser }
   },
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule),
-    ...canActivate(redirectLoggedInUser)
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectLoggedInUser }
   },
   {
     path: 'signup',
@@ -35,8 +39,8 @@ const routes: Routes = [
         loadChildren: () => import('./signup/enterprise/enterprise-signup.module').then(m => m.EnterpriseSignupPageModule)
       }
     ],
-    ...canActivate(redirectLoggedInUser)
-  },
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedUser }  },
   {
     path: 'enterprise-only',
     loadChildren: () => import('./enterprise-only/enterprise-only.module').then(m => m.EnterpriseOnlyPageModule),
@@ -45,14 +49,14 @@ const routes: Routes = [
   {
     path: 'account',
     loadChildren: () => import('./account/account.module').then(m => m.AccountPageModule),
-    ...canActivate(redirectUnauthorizedUser)
-
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedUser }
   },
   {
     path: 'liked-companies',
     loadChildren: () => import('./liked-companies/liked-companies.module').then(m => m.LikedCompaniesPageModule),
-    ...canActivate(redirectUnauthorizedUser)
-
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedUser }
   },
   { path: 'some-page', loadChildren: './some-page/some-page.module#SomePagePageModule' },
   { path: '**', redirectTo: 'home', pathMatch: 'full' }

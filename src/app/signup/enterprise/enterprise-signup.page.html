@@ -24,7 +24,6 @@
           <ion-item>
             <ion-label position="floating">Date Founded</ion-label>
             <ion-datetime formControlName="founded"
-                          [max]="datetimeConfig.max"
                           [min]="datetimeConfig.min"></ion-datetime>
             <span *ngIf="founded.invalid && founded.value"
                   class="error-message">Valid Date Founded required</span>
