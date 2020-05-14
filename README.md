@@ -15,9 +15,9 @@ Source code for Sections 2-6 of the [Ionic Angular Course](https://github.com/di
 * Run a search of the src and functions/src directories for the string `[TODO]`, which may return minor changes you need to make to get things working properly.
 
 ## Possible Next Steps
-* Implement Push Notifications.
-* Add one more user role (perhaps just an administator).
-* Find ways to speed up initial user creation (such as by completing the task under the hood, and only bringing the user back if an error is thrown).
-* Build the Liked Companies feature: create a database of companies, search function, and way to like/unlike.
-* Make the Enterprise account actually worth it!
+* Implement [Push Notifications](https://firebase.google.com/docs/cloud-messaging).
+* Add more user roles (e.g., admin, editor, owner...).
+* Find ways to speed up user registration (such as by completing the task under the hood, and only bringing the user back if an error is thrown).
+* Build the Liked Companies feature: create a database of companies, a search function, and a way to like/unlike.
+* Make the Enterprise account actually worth paying for!
 * Go crazy.

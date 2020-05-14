@@ -12,7 +12,7 @@ export declare namespace User {
     }
 
     interface Standard extends _base {
-        accountType: 'standard';
+        accountType: AccountType;
         general: {
             firstName: string;
             lastName: string;
@@ -26,7 +26,7 @@ export declare namespace User {
     }
 
     interface Enterprise extends _base {
-        accountType: 'enterprise';
+        accountType: AccountType;
         company: {
             name: string;
             founded: {
@@ -39,7 +39,10 @@ export declare namespace User {
     }
 }
 
-export type AccountType = 'enterprise' | 'standard';
+/**
+ * Account type of the user. Valid vales are `'enterprise'` or `'standard'`.
+ */
+export type AccountType = string;
 
 export interface CustomClaims {
     accountType: AccountType;

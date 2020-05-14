@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-        // [TODO] Add your firebase keys here
+    // [TODO] Add your firebase keys here
   }
 };
 

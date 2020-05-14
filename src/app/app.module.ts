@@ -4,7 +4,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFireFunctionsModule, FunctionsRegionToken } from '@angular/fire/functions';
+import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
@@ -36,9 +36,9 @@ import { environment } from 'src/environments/environment';
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
 
-     // [TODO] Change this to whichever Cloud Functions Region you wish, but it must match the one used for cloud functions called by this app.
+     // [TODO] Change this to whichever Cloud Functions Region you wish, but it must match the one used by the cloud functions called by this app.
      // The default is the Iowa-based us-central1, which is just fine for learning purposes.
-    { provide: FunctionsRegionToken, useValue: 'us-central1' },
+    { provide: REGION, useValue: 'us-central1' },
 
 
     AngularFireAuth,

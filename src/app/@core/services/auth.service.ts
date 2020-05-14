@@ -4,7 +4,7 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import { first, switchMap, map } from 'rxjs/operators';
+import { first, switchMap, map, tap } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 
 import { CustomClaims } from '../models/user';
@@ -18,9 +18,16 @@ export class AuthService {
         private aff: AngularFireFunctions) { }
 
     /**
-     * Observable of the user's Firebase Credential AND custom claims. 
+     * The user's Firebase UID.
+     */
+    uid: string;
+    /**
+     * Observable of the user's Firebase Credential AND custom claims.
      */
     user$ = this.afAuth.authState.pipe(
+        tap(userCredential => {
+            this.uid = userCredential.uid;
+        }),
         switchMap(userCredential => userCredential ? this.userCustomClaims$.pipe(
             map(claims => ({
                 ...claims,
@@ -38,19 +45,12 @@ export class AuthService {
     ) as Observable<CustomClaims>;
 
     /**
-     * Indicates whether the user has just logged in. 
+     * Indicates whether the user has just logged in.
      */
     newLogin: boolean;
 
     /**
-     * Returns the current user's Firebase UID.
-     */
-    get uid() {
-        return this.afAuth.auth.currentUser ? this.afAuth.auth.currentUser.uid : '';
-    }
-
-    /**
-     * Returns the current user's account type.
+     * The current user's account type.
      */
     async getAccountType() {
         return (await this.userCustomClaims$.pipe(first()).toPromise()).accountType;
@@ -63,7 +63,7 @@ export class AuthService {
      */
     loginWithToken(token: string) {
         this.newLogin = true;
-        return this.afAuth.auth.signInWithCustomToken(token);
+        return this.afAuth.signInWithCustomToken(token);
     }
 
     /**
@@ -79,16 +79,16 @@ export class AuthService {
     }
 
     /**
-     * Refresh the authenticated user's JSON web token without breaking authentication status. 
+     * Refresh the authenticated user's JSON web token without breaking authentication status.
      * Use when changes to user's custom claims have occurred.
      * @returns New Token ID.
      */
-    refreshClaims() {
-        return this.afAuth.auth.currentUser.getIdToken(true);
+    async refreshClaims() {
+        return (await this.afAuth.currentUser).getIdToken(true);
     }
 
-    reloadUser() {
-        return this.afAuth.auth.currentUser.reload();
+    async reloadUser() {
+        return (await this.afAuth.currentUser).reload();
     }
 
     /**
@@ -112,7 +112,7 @@ export class AuthService {
      */
     login({ email, password }) {
         this.newLogin = true;
-        return this.afAuth.auth.signInWithEmailAndPassword(email, password);
+        return this.afAuth.signInWithEmailAndPassword(email, password);
     }
 
     /**
@@ -120,7 +120,7 @@ export class AuthService {
      *  @returns Firebase User Credential
      */
     loginGoogle() {
-        return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+        return this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     }
 
     /**
@@ -131,11 +131,11 @@ export class AuthService {
      *  @returns Firebase User Credential
      */
     createUser({ email, password }) {
-        return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+        return this.afAuth.createUserWithEmailAndPassword(email, password);
     }
 
     /**
-     * Create a new reCAPTCHA form, ready for presentation in the UI. All linkage with the user's account is done under the hood. 
+     * Create a new reCAPTCHA form, ready for presentation in the UI. All linkage with the user's account is done under the hood.
      * @param elementId ID of the HTML element to attach the form.
      * @param options (See reCAPTCHA docs).
      * @returns Verifier ready to be presented to user (by calling render()).
@@ -149,14 +149,14 @@ export class AuthService {
      * @param email User's email.
      */
     sendPasswordResetEmail(email: string) {
-        return this.afAuth.auth.sendPasswordResetEmail(email);
+        return this.afAuth.sendPasswordResetEmail(email);
     }
 
     /**
      * Deauthenticate user on the Firebase plane.
      */
     logout() {
-        return this.afAuth.auth.signOut();
+        return this.afAuth.signOut();
     }
 }
 
